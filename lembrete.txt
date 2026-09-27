@@ -1,0 +1,6 @@
+Próximos passos:
+
+- Implementar delete de bugs
+- Criar autenticação
+- Desenvolver frontend para consumir a API
+- Adicionar testes automatizados
