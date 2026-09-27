@@ -1,73 +1,71 @@
 # Bug Tracker
 
-Aplicação simples de rastreamento de bugs com backend em Node.js + Express e banco SQLite.
+Aplicação para registrar e acompanhar bugs, com frontend em Vue, API em Node.js + Express e banco SQLite.
 
 ## Visão geral
 
-Este projeto foi criado para registrar bugs, listar todos os itens e atualizar status e prioridade. A API expõe endpoints para gerenciar tarefas de correção e acompanhamento.
+O sistema permite criar, listar e excluir bugs. Cada item tem título, descrição, prioridade, status e data de criação. A API também permite atualizar o status e a prioridade.
 
 ## Tecnologias
 
-- Node.js
-- Express
-- TypeScript
-- SQLite com better-sqlite3
+- Node.js e npm workspaces
+- Vue 3 e Vue CLI
+- Express 5 e TypeScript
+- SQLite com `better-sqlite3`
 
 ## Estrutura do projeto
 
-```bash
+```text
 bug-tracker/
 ├── backend/
 │   ├── src/
 │   ├── package.json
-│   ├── tsconfig.json
-│   └── database.db
+│   └── tsconfig.json
 ├── frontend/
+│   ├── src/
+│   └── package.json
+├── package.json
 └── README.md
 ```
 
 ## Pré-requisitos
 
-- Node.js 18+
-- npm ou yarn
+- Node.js
+- npm
 
-## Como rodar o backend
+## Instalação e execução
 
-1. Abra o terminal no diretório `backend`:
-
-```bash
-cd backend
-```
-
-2. Instale as dependências:
+Na raiz do projeto, instale as dependências e inicie o frontend e o backend:
 
 ```bash
 npm install
-```
-
-3. Inicie o servidor em modo de desenvolvimento:
-
-```bash
 npm run dev
 ```
 
-O servidor ficará disponível em:
+O frontend fica disponível em `http://localhost:8080` e o backend em `http://localhost:3000`. Durante o desenvolvimento, as chamadas do frontend para `/bugs` são encaminhadas para o backend.
+
+Também é possível iniciar cada parte separadamente na raiz:
 
 ```bash
-http://localhost:3000
+npm run dev:backend
+npm run dev:frontend
 ```
 
-## Endpoints da API
+## API
 
-### GET /
+Todos os endpoints usam o backend em `http://localhost:3000`.
 
-Retorna uma mensagem simples de teste.
+### `GET /`
 
-### POST /bugs
+Retorna uma mensagem simples para verificar se o servidor está ativo.
 
-Cria um novo bug.
+### `GET /bugs`
 
-Body exemplo:
+Retorna a lista de bugs no campo `bugs`.
+
+### `POST /bugs`
+
+Cria um bug. `title` e `description` são obrigatórios; `status` e `priority` são opcionais e assumem `OPEN` e `LOW` quando não informados.
 
 ```json
 {
@@ -78,15 +76,9 @@ Body exemplo:
 }
 ```
 
-### GET /bugs
+### `PATCH /bugs/:id`
 
-Lista todos os bugs cadastrados.
-
-### PATCH /bugs/:id
-
-Atualiza status e/ou prioridade de um bug existente.
-
-Body exemplo:
+Atualiza o status e/ou a prioridade de um bug.
 
 ```json
 {
@@ -95,11 +87,10 @@ Body exemplo:
 }
 ```
 
+### `DELETE /bugs/:id`
+
+Exclui o bug indicado pelo ID.
+
 ## Banco de dados
 
-O projeto usa SQLite e cria automaticamente a tabela `bugs` ao iniciar o backend, se ela ainda não existir.
-
-## Observações
-
-- O banco fica no arquivo `backend/database.db`.
-- O projeto ainda está em desenvolvimento e pode receber melhorias na estrutura e na interface do frontend.
+O backend cria a tabela `bugs` ao iniciar, caso ela ainda não exista. O arquivo SQLite local é `backend/database.db` e é ignorado pelo Git.

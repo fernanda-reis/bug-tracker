@@ -1,6 +1,6 @@
-Próximos passos:
+Bug Tracker to do's:
 
-- Implementar delete de bugs
+- Adicionar tabelas drag and drog no front
+- Ajustar arquitetura do backend
 - Criar autenticação
-- Desenvolver frontend para consumir a API
 - Adicionar testes automatizados

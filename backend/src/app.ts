@@ -3,6 +3,7 @@ import {
   createBug,
   getAllBugs,
   updateBugStatusAndPriority,
+  deleteBug,
 } from "./controllers/BugController.ts";
 import { openDB } from "./configDB.ts";
 
@@ -37,6 +38,14 @@ app.patch("/bugs/:id", async (req: Request, res: Response) => {
   res.json({
     statusCode: 200,
     bug,
+  });
+});
+
+app.delete("/bugs/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  deleteBug(Number(id));
+  res.json({
+    statusCode: 200,
   });
 });
 
